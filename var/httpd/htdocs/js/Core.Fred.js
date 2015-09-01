@@ -183,17 +183,18 @@ Core.Fred = (function (TargetNS) {
                 Subaction: 'ConfigSwitchAJAX',
                 Key: 'Fred::Active',
                 HashKey: 'Active',
-                Value: $('.DevelFredBox').is(":visible") ? 1 : 0,
+                Value: $('#DevelFredToggleContainerLink').hasClass('Active') ? 1 : 0,
             };
 
-            if ( $('.DevelFredBox').is(":visible") ) {
-                $('.DevelFredBox').hide();
-            }
-            else {
-                $('.DevelFredBox').show();
-            }
 
             $('#DevelFredToggleContainerLink').toggleClass('Active');
+
+            if ( !$('.DevelFredBox').is(":visible") && $('#DevelFredToggleContainerLink').hasClass('Active') ) {
+                $('.DevelFredBox').show();
+            }
+            else {
+                $('.DevelFredBox').hide();
+            }
 
             Core.AJAX.FunctionCall(Core.Config.Get('CGIHandle'), Data, function (Response) {
                 DevelFredToggleContainerLinkProccess = 0;
