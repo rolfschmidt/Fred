@@ -143,7 +143,7 @@ sub Run {
 
     # add fred icon to header
     my $Active = $ConfigObject->Get('Fred::Active') || 0;
-    my $Class = $Active ? 'Active' : '';
+    my $Class = $Active ? 'FredActive' : '';
     ${ $Param{Data} } =~ s{ <div [^>]* id="header" [^>]*> }{
         $&
 
@@ -151,6 +151,7 @@ sub Run {
             <a id="DevelFredToggleContainerLink" class="$Class" href="#">F</a>
         </div>
     }xmsig;
+    ${ $Param{Data} } =~ s{ (<body [^>]* class=" [^"]*) ( " [^>]*> ) }{ $1 $Class $2 }xmsig;
 
     # Inject JS at the end of the body
     ${ $Param{Data} } =~ s{</body>}{$JSOutput\n\t</body>}smx;

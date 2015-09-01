@@ -169,7 +169,7 @@ Core.Fred = (function (TargetNS) {
             }
         }());
 
-        if ( !$('#DevelFredToggleContainerLink').hasClass('Active') ) {
+        if ( !$('body').hasClass('FredActive') ) {
             $('.DevelFredBox').hide();
         }
 
@@ -182,14 +182,14 @@ Core.Fred = (function (TargetNS) {
                 Action: 'DevelFred',
                 Subaction: 'ConfigSwitchAJAX',
                 Key: 'Fred::Active',
-                HashKey: 'Active',
-                Value: $('#DevelFredToggleContainerLink').hasClass('Active') ? 1 : 0,
+                Value: $('body').hasClass('FredActive') ? 1 : 0,
             };
 
 
-            $('#DevelFredToggleContainerLink').toggleClass('Active');
+            $('body').toggleClass('FredActive');
+            $('#DevelFredToggleContainerLink').toggleClass('FredActive');
 
-            if ( !$('.DevelFredBox').is(":visible") && $('#DevelFredToggleContainerLink').hasClass('Active') ) {
+            if ( !$('.DevelFredBox').is(":visible") && $('body').hasClass('FredActive') ) {
                 $('.DevelFredBox').show();
             }
             else {

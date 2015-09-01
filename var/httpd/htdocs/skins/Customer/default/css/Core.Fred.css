@@ -321,7 +321,7 @@ a#DevelFredToggleContainerLink {
     color: #808080;
 }
 
-a#DevelFredToggleContainerLink.Active {
+a#DevelFredToggleContainerLink.FredActive {
     font-size: 35px;
     font-weight:bold;
     color: #006ea5;
