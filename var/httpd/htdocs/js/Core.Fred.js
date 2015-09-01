@@ -18,6 +18,8 @@ Core.Fred = Core.Fred || {};
  */
 Core.Fred = (function (TargetNS) {
 
+    var DevelFredToggleContainerLinkProccess = 0;
+
     /**
      * @function
      * @description
@@ -81,10 +83,10 @@ Core.Fred = (function (TargetNS) {
             }
         });
         $('.FredClose').bind('click', function() {
-            $(this).closest('.DevelFredBox').remove();
+            $(this).closest('.DevelFredBox').hide();
         });
         $('.FredCloseAll').bind('click', function() {
-            $('.DevelFredBox').remove();
+            $('.DevelFredBox').hide();
         });
 
         // empty the search field
@@ -99,7 +101,7 @@ Core.Fred = (function (TargetNS) {
             });
         }
         else {
-            $('.FredQuickSearch, .FredSearch').remove();
+            $('.FredQuickSearch, .FredSearch').hide();
         }
 
         // register new popup profile as needed by fred
@@ -166,6 +168,37 @@ Core.Fred = (function (TargetNS) {
                 }
             }
         }());
+
+        if ( !$('#DevelFredToggleContainerLink').hasClass('Active') ) {
+            $('.DevelFredBox').hide();
+        }
+
+        $('#DevelFredToggleContainerLink').on('click', function() {
+            if (DevelFredToggleContainerLinkProccess) return;
+
+            DevelFredToggleContainerLinkProccess = 1;
+
+            var Data = {
+                Action: 'DevelFred',
+                Subaction: 'ConfigSwitchAJAX',
+                Key: 'Fred::Active',
+                HashKey: 'Active',
+                Value: $('.DevelFredBox').is(":visible") ? 1 : 0,
+            };
+
+            if ( $('.DevelFredBox').is(":visible") ) {
+                $('.DevelFredBox').hide();
+            }
+            else {
+                $('.DevelFredBox').show();
+            }
+
+            $('#DevelFredToggleContainerLink').toggleClass('Active');
+
+            Core.AJAX.FunctionCall(Core.Config.Get('CGIHandle'), Data, function (Response) {
+                DevelFredToggleContainerLinkProccess = 0;
+            }, 'json');
+        });
     };
 
     TargetNS.Init();
